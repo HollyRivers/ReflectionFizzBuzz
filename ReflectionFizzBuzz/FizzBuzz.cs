@@ -41,6 +41,9 @@ public sealed class FizzBuzz {
 	}
 
 	public void AddDivisorReplacementRule(int divisor, string replacementWord) {
+		if (divisor < 1) {
+			throw new ArgumentOutOfRangeException(nameof(divisor), "Divisor must be a positive integer");
+		}
 		var method = GetType().GetMethod("ReplaceIfDivisible", BindingFlags.NonPublic | BindingFlags.Instance);
 		var replacement = new DivisibleReplacementRule() {
 			Divisor = divisor,
