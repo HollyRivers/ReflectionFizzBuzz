@@ -41,7 +41,7 @@ public sealed class FizzBuzz {
 	}
 
 	public void AddDivisorReplacementRule(int divisor, string replacementWord) {
-		var method = GetType().GetMethod(replacementWord, BindingFlags.NonPublic | BindingFlags.Instance);
+		var method = GetType().GetMethod("ReplaceIfDivisible", BindingFlags.NonPublic | BindingFlags.Instance);
 		var replacement = new DivisibleReplacementRule() {
 			Divisor = divisor,
 			MethodInfo = method,
@@ -50,11 +50,7 @@ public sealed class FizzBuzz {
 		_replacements.Add(replacement);
 	}
 
-	private string Fizz(int number, DivisibleReplacementRule replacement) {
-		return number % replacement.Divisor == 0 ? "Fizz" : string.Empty;
-	}
-
-	private string Buzz(int number, DivisibleReplacementRule replacement) {
-		return number % replacement.Divisor == 0 ? "Buzz" : string.Empty;
+	private string ReplaceIfDivisible(int number, DivisibleReplacementRule replacement) {
+		return number % replacement.Divisor == 0 ? replacement.ReplacementWord : string.Empty;
 	}
 }
