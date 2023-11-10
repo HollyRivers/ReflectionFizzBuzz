@@ -30,6 +30,11 @@ public sealed class FizzBuzz {
 		return (string)method.Invoke(this, new object[] { number, divisor });
 	}
 
+	public void AddStandardReplacementRules() {
+		AddDivisorReplacementRule(3, "Fizz");
+		AddDivisorReplacementRule(5, "Buzz");
+	}
+
 	public void AddDivisorReplacementRule(int divisor, string replacementWord) {
 		var method = GetType().GetMethod(replacementWord, BindingFlags.NonPublic | BindingFlags.Instance);
 		_replacements.Add(divisor, method);
