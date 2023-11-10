@@ -1,3 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ReflectionFizzBuzz;
 
-Console.WriteLine("Hello, World!");
+var fb = new FizzBuzz();
+fb.AddStandardReplacementRules();
+fb.PrintBetween(1, 100);
