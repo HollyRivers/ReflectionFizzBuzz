@@ -10,17 +10,22 @@ public sealed class FizzBuzz
 
 	public void PrintBetween(int minimum, int maximum)
 	{
-		if (minimum > maximum)
-		{
-			throw new ArgumentException("Minimum value cannot be greater than maximum value");
-		}
-		
+		ValidatePrintBetweenRange(minimum, maximum);
+
 		for (var i = minimum; i <= maximum; i++)
 		{
 			Print(i);
 		}
 	}
-	
+
+	private static void ValidatePrintBetweenRange(int minimum, int maximum)
+	{
+		if (minimum > maximum)
+		{
+			throw new ArgumentException("Minimum value cannot be greater than maximum value");
+		}
+	}
+
 	public void Print(int number)
 	{
 		var output = Generate(number);
@@ -51,15 +56,8 @@ public sealed class FizzBuzz
 
 	public void AddDivisorReplacementRule(int divisor, string replacementWord)
 	{
-		if (divisor < 1)
-		{
-			throw new ArgumentOutOfRangeException(nameof(divisor), "Divisor must be a positive integer");
-		}
-		if (_replacements.OfType<DivisibleReplacementRule>().Any(r => r.Divisor == divisor))
-		{
-			throw new ArgumentException($"A replacement rule already exists for divisor {divisor}");
-		}
-		
+		ValidateDivisorReplacementRule(divisor);
+
 		var method = GetType().GetMethod("ReplaceIfDivisible", BindingFlags.NonPublic | BindingFlags.Instance);
 		var replacement = new DivisibleReplacementRule()
 		{
@@ -68,6 +66,19 @@ public sealed class FizzBuzz
 			ReplacementWord = replacementWord
 		};
 		_replacements.Add(replacement);
+	}
+
+	private void ValidateDivisorReplacementRule(int divisor)
+	{
+		if (divisor < 1)
+		{
+			throw new ArgumentOutOfRangeException(nameof(divisor), "Divisor must be a positive integer");
+		}
+
+		if (_replacements.OfType<DivisibleReplacementRule>().Any(r => r.Divisor == divisor))
+		{
+			throw new ArgumentException($"A replacement rule already exists for divisor {divisor}");
+		}
 	}
 
 	private string ReplaceIfDivisible(int number, DivisibleReplacementRule replacement)
