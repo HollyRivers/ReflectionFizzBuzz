@@ -48,4 +48,18 @@ public class FizzBuzzTests {
 
 		actual.Should().ContainSingle();
 	}
+
+	[Fact]
+	public void PrintBetween_WithValidRangeAndFizzReplacementRule_Replaces3_WithFizzInOutput() {
+		var expected = $"1{Environment.NewLine}2{Environment.NewLine}Fizz{Environment.NewLine}4{Environment.NewLine}5{Environment.NewLine}";
+		using var sw = new StringWriter();
+		Console.SetOut(sw);
+		var sut = new FizzBuzz();
+		sut.AddDivisorReplacementRule(3, "Fizz");
+
+		sut.PrintBetween(1, 5);
+
+		var actual = sw.ToString();
+		actual.Should().Be(expected);
+	}
 }
