@@ -107,4 +107,13 @@ public class FizzBuzzTests {
 		var actual = sw.ToString();
 		actual.Should().Be(expected);
 	}
+
+	[Fact]
+	public void PrintBetween_WithMinimumGreaterThanMaximum_ThrowsArgumentException() {
+		var sut = new FizzBuzz();
+
+		var act = () => sut.PrintBetween(2, 1);
+
+		act.Should().Throw<ArgumentException>().WithMessage("Minimum value cannot be greater than maximum value");
+	}
 }
