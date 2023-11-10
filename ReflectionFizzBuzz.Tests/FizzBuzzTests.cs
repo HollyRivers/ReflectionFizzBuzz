@@ -21,6 +21,7 @@ public class FizzBuzzTests {
 		actual.Should().Be(expectedOutput);
 	}
 
+	[Fact]
 	public void PrintBetween_WithValidRange_PrintsListOfNumbersToConsole() {
 		var expected = $"1{Environment.NewLine}2{Environment.NewLine}3{Environment.NewLine}4{Environment.NewLine}5{Environment.NewLine}6{Environment.NewLine}" +
 		               $"7{Environment.NewLine}8{Environment.NewLine}9{Environment.NewLine}10{Environment.NewLine}11{Environment.NewLine}12{Environment.NewLine}" +
