@@ -38,4 +38,8 @@ public sealed class FizzBuzz {
 	private string Fizz(int number, int divisor) {
 		return number % divisor == 0 ? "Fizz" : string.Empty;
 	}
+
+	private string Buzz(int number, int divisor) {
+		return number % divisor == 0 ? "Buzz" : string.Empty;
+	}
 }
