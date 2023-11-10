@@ -1,5 +1,6 @@
 using System.Reflection;
 using FluentAssertions;
+using ReflectionFizzBuzz.Entities;
 
 namespace ReflectionFizzBuzz.Tests;
 
