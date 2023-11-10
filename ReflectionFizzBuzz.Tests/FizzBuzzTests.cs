@@ -130,4 +130,16 @@ public class FizzBuzzTests {
 		actual.OfType<DivisibleReplacementRule>().Should().Contain(r => r.Divisor == 3 && r.ReplacementWord == "Fizz");
 		actual.OfType<DivisibleReplacementRule>().Should().Contain(r => r.Divisor == 5 && r.ReplacementWord == "Buzz");
 	}
+
+	[Theory]
+	[InlineData(0)]
+	[InlineData(-1)]
+	[InlineData(-100)]
+	public void AddDivisorReplacementRule_WithDivisorLessThanOne_ThrowsArgumentOutOfRangeException(int divisor) {
+		var sut = new FizzBuzz();
+
+		var act = () => sut.AddDivisorReplacementRule(divisor, "Fizz");
+
+		act.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Divisor must be a positive integer (Parameter 'divisor')");
+	}
 }
