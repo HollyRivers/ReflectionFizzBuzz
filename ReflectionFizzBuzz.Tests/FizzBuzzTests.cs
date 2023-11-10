@@ -4,14 +4,16 @@ using ReflectionFizzBuzz.Entities;
 
 namespace ReflectionFizzBuzz.Tests;
 
-public class FizzBuzzTests {
+public class FizzBuzzTests
+{
 	[Theory]
 	[InlineData(1, "1")]
 	[InlineData(2, "2")]
 	[InlineData(3, "3")]
 	[InlineData(4, "4")]
 	[InlineData(5, "5")]
-	public void Print_WithValidNumber_PrintsNumberToConsole(int input, string expectedValue) {
+	public void Print_WithValidNumber_PrintsNumberToConsole(int input, string expectedValue)
+	{
 		var expectedOutput = $"{expectedValue}{Environment.NewLine}";
 		using var sw = new StringWriter();
 		Console.SetOut(sw);
@@ -24,7 +26,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void PrintBetween_WithValidRange_PrintsListOfNumbersToConsole() {
+	public void PrintBetween_WithValidRange_PrintsListOfNumbersToConsole()
+	{
 		var expected = $"1{Environment.NewLine}2{Environment.NewLine}3{Environment.NewLine}4{Environment.NewLine}5{Environment.NewLine}6{Environment.NewLine}" +
 		               $"7{Environment.NewLine}8{Environment.NewLine}9{Environment.NewLine}10{Environment.NewLine}11{Environment.NewLine}12{Environment.NewLine}" +
 		               $"13{Environment.NewLine}14{Environment.NewLine}15{Environment.NewLine}";
@@ -39,7 +42,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void AddDivisorReplacementRule_With3AndFizz_AddsOneRule() {
+	public void AddDivisorReplacementRule_With3AndFizz_AddsOneRule()
+	{
 		var sut = new FizzBuzz();
 
 		sut.AddDivisorReplacementRule(3, "Fizz");
@@ -51,7 +55,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void PrintBetween_WithValidRangeAndFizzReplacementRule_Replaces3WithFizzInOutput() {
+	public void PrintBetween_WithValidRangeAndFizzReplacementRule_Replaces3WithFizzInOutput()
+	{
 		var expected = $"1{Environment.NewLine}2{Environment.NewLine}Fizz{Environment.NewLine}4{Environment.NewLine}5{Environment.NewLine}";
 		using var sw = new StringWriter();
 		Console.SetOut(sw);
@@ -65,7 +70,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void PrintBetween_WithValidRangeAndFizzAndBuzzReplacementRules_Replaces3WithFizzAnd5WithBuzzInOutput() {
+	public void PrintBetween_WithValidRangeAndFizzAndBuzzReplacementRules_Replaces3WithFizzAnd5WithBuzzInOutput()
+	{
 		var expected = $"1{Environment.NewLine}2{Environment.NewLine}Fizz{Environment.NewLine}4{Environment.NewLine}Buzz{Environment.NewLine}Fizz{Environment.NewLine}" +
 		               $"7{Environment.NewLine}8{Environment.NewLine}Fizz{Environment.NewLine}Buzz{Environment.NewLine}11{Environment.NewLine}Fizz{Environment.NewLine}" +
 		               $"13{Environment.NewLine}14{Environment.NewLine}FizzBuzz{Environment.NewLine}";
@@ -82,7 +88,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void AddStandardReplacementRules_AddsTwoReplacementRules() {
+	public void AddStandardReplacementRules_AddsTwoReplacementRules()
+	{
 		var sut = new FizzBuzz();
 
 		sut.AddStandardReplacementRules();
@@ -94,7 +101,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void PrintBetween_WithValidRangeAndStandardReplacements_PrintsExpectedOutputToConsole() {
+	public void PrintBetween_WithValidRangeAndStandardReplacements_PrintsExpectedOutputToConsole()
+	{
 		var expected = $"1{Environment.NewLine}2{Environment.NewLine}Fizz{Environment.NewLine}4{Environment.NewLine}Buzz{Environment.NewLine}Fizz{Environment.NewLine}" +
 		               $"7{Environment.NewLine}8{Environment.NewLine}Fizz{Environment.NewLine}Buzz{Environment.NewLine}11{Environment.NewLine}Fizz{Environment.NewLine}" +
 		               $"13{Environment.NewLine}14{Environment.NewLine}FizzBuzz{Environment.NewLine}";
@@ -110,7 +118,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void PrintBetween_WithMinimumGreaterThanMaximum_ThrowsArgumentException() {
+	public void PrintBetween_WithMinimumGreaterThanMaximum_ThrowsArgumentException()
+	{
 		var sut = new FizzBuzz();
 
 		var act = () => sut.PrintBetween(2, 1);
@@ -119,7 +128,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void AddStandardReplacementRules_AddsRulesForFizzAndBuzz() {
+	public void AddStandardReplacementRules_AddsRulesForFizzAndBuzz()
+	{
 		var sut = new FizzBuzz();
 		
 		sut.AddStandardReplacementRules();
@@ -135,7 +145,8 @@ public class FizzBuzzTests {
 	[InlineData(0)]
 	[InlineData(-1)]
 	[InlineData(-100)]
-	public void AddDivisorReplacementRule_WithDivisorLessThanOne_ThrowsArgumentOutOfRangeException(int divisor) {
+	public void AddDivisorReplacementRule_WithDivisorLessThanOne_ThrowsArgumentOutOfRangeException(int divisor)
+	{
 		var sut = new FizzBuzz();
 
 		var act = () => sut.AddDivisorReplacementRule(divisor, "Fizz");
@@ -144,7 +155,8 @@ public class FizzBuzzTests {
 	}
 
 	[Fact]
-	public void AddDivisorReplacementRule_AddingTwoRulesToSameDivisor_ThrowsArgumentException() {
+	public void AddDivisorReplacementRule_AddingTwoRulesToSameDivisor_ThrowsArgumentException()
+	{
 		var sut = new FizzBuzz();
 
 		sut.AddDivisorReplacementRule(3, "Fizz");
