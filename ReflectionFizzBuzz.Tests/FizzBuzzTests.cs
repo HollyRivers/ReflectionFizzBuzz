@@ -91,4 +91,20 @@ public class FizzBuzzTests {
 
 		actual.Count.Should().Be(2);
 	}
+
+	[Fact]
+	public void PrintBetween_WithValidRangeAndStandardReplacements_PrintsExpectedOutputToConsole() {
+		var expected = $"1{Environment.NewLine}2{Environment.NewLine}Fizz{Environment.NewLine}4{Environment.NewLine}Buzz{Environment.NewLine}Fizz{Environment.NewLine}" +
+		               $"7{Environment.NewLine}8{Environment.NewLine}Fizz{Environment.NewLine}Buzz{Environment.NewLine}11{Environment.NewLine}Fizz{Environment.NewLine}" +
+		               $"13{Environment.NewLine}14{Environment.NewLine}FizzBuzz{Environment.NewLine}";
+		using var sw = new StringWriter();
+		Console.SetOut(sw);
+		var sut = new FizzBuzz();
+		sut.AddStandardReplacementRules();
+
+		sut.PrintBetween(1, 15);
+
+		var actual = sw.ToString();
+		actual.Should().Be(expected);
+	}
 }
