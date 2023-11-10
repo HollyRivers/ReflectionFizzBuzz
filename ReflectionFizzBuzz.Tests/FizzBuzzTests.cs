@@ -79,4 +79,16 @@ public class FizzBuzzTests {
 		var actual = sw.ToString();
 		actual.Should().Be(expected);
 	}
+
+	[Fact]
+	public void AddStandardReplacementRules_AddsTwoReplacementRules() {
+		var sut = new FizzBuzz();
+
+		sut.AddStandardReplacementRules();
+
+		var fieldInfo = typeof(FizzBuzz).GetField("_replacements", BindingFlags.NonPublic | BindingFlags.Instance);
+		var actual = (Dictionary<int, MethodInfo>)fieldInfo.GetValue(sut);
+
+		actual.Count.Should().Be(2);
+	}
 }
