@@ -1,3 +1,4 @@
+using System.Reflection;
 using FluentAssertions;
 
 namespace ReflectionFizzBuzz.Tests;
@@ -34,5 +35,17 @@ public class FizzBuzzTests {
 
 		var actual = sw.ToString();
 		actual.Should().Be(expected);
+	}
+
+	[Fact]
+	public void AddDivisorReplacementRule_With3AndFizz_AddsOneRule() {
+		var sut = new FizzBuzz();
+
+		sut.AddDivisorReplacementRule(3, "Fizz");
+
+		var fieldInfo = typeof(FizzBuzz).GetField("_replacements", BindingFlags.NonPublic | BindingFlags.Instance);
+		var actual = (Dictionary<int, string>)fieldInfo.GetValue(sut);
+
+		actual.Should().ContainSingle();
 	}
 }
