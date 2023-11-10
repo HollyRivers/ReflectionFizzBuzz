@@ -142,4 +142,14 @@ public class FizzBuzzTests {
 
 		act.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Divisor must be a positive integer (Parameter 'divisor')");
 	}
+
+	[Fact]
+	public void AddDivisorReplacementRule_AddingTwoRulesToSameDivisor_ThrowsArgumentException() {
+		var sut = new FizzBuzz();
+
+		sut.AddDivisorReplacementRule(3, "Fizz");
+		var act = () => sut.AddDivisorReplacementRule(3, "Buzz");
+
+		act.Should().Throw<ArgumentException>().WithMessage("A replacement rule already exists for divisor 3");
+	}
 }
