@@ -7,6 +7,10 @@ public sealed class FizzBuzz {
 	private readonly Dictionary<int, MethodInfo> _replacements = new();
 
 	public void PrintBetween(int minimum, int maximum) {
+		if (minimum > maximum) {
+			throw new ArgumentException("Minimum value cannot be greater than maximum value");
+		}
+		
 		for (var i = minimum; i <= maximum; i++) {
 			Print(i);
 		}
