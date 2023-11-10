@@ -1,9 +1,10 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 
 namespace ReflectionFizzBuzz; 
 
 public sealed class FizzBuzz {
-	private readonly Dictionary<int, string> _replacements = new();
+	private readonly Dictionary<int, MethodInfo> _replacements = new();
 
 	public void PrintBetween(int minimum, int maximum) {
 		for (var i = minimum; i <= maximum; i++) {
@@ -19,15 +20,22 @@ public sealed class FizzBuzz {
 	private string Generate(int number) {
 		var output = new StringBuilder();
 		foreach (var replacement in _replacements) {
-			if (number % replacement.Key == 0) {
-				output.Append(replacement.Value);
-			}
+			output.Append(InvokeMethod(number, replacement.Key, replacement.Value));
 		}
 		var result = output.ToString();
 		return result == string.Empty ? number.ToString() : result;
 	}
 
+	private string InvokeMethod(int number, int divisor, MethodInfo method) {
+		return (string)method.Invoke(this, new object[] { number, divisor });
+	}
+
 	public void AddDivisorReplacementRule(int divisor, string replacementWord) {
-		_replacements.Add(divisor, replacementWord);
+		var method = GetType().GetMethod(replacementWord, BindingFlags.NonPublic | BindingFlags.Instance);
+		_replacements.Add(divisor, method);
+	}
+
+	private string Fizz(int number, int divisor) {
+		return number % divisor == 0 ? "Fizz" : string.Empty;
 	}
 }

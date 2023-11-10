@@ -44,7 +44,7 @@ public class FizzBuzzTests {
 		sut.AddDivisorReplacementRule(3, "Fizz");
 
 		var fieldInfo = typeof(FizzBuzz).GetField("_replacements", BindingFlags.NonPublic | BindingFlags.Instance);
-		var actual = (Dictionary<int, string>)fieldInfo.GetValue(sut);
+		var actual = (Dictionary<int, MethodInfo>)fieldInfo.GetValue(sut);
 
 		actual.Should().ContainSingle();
 	}
