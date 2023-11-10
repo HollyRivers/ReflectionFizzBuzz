@@ -44,7 +44,7 @@ public class FizzBuzzTests {
 		sut.AddDivisorReplacementRule(3, "Fizz");
 
 		var fieldInfo = typeof(FizzBuzz).GetField("_replacements", BindingFlags.NonPublic | BindingFlags.Instance);
-		var actual = (Dictionary<int, MethodInfo>)fieldInfo.GetValue(sut);
+		var actual = (List<IReplacementRule>)fieldInfo.GetValue(sut);
 
 		actual.Should().ContainSingle();
 	}
@@ -87,7 +87,7 @@ public class FizzBuzzTests {
 		sut.AddStandardReplacementRules();
 
 		var fieldInfo = typeof(FizzBuzz).GetField("_replacements", BindingFlags.NonPublic | BindingFlags.Instance);
-		var actual = (Dictionary<int, MethodInfo>)fieldInfo.GetValue(sut);
+		var actual = (List<IReplacementRule>)fieldInfo.GetValue(sut);
 
 		actual.Count.Should().Be(2);
 	}
@@ -115,5 +115,18 @@ public class FizzBuzzTests {
 		var act = () => sut.PrintBetween(2, 1);
 
 		act.Should().Throw<ArgumentException>().WithMessage("Minimum value cannot be greater than maximum value");
+	}
+
+	[Fact]
+	public void AddStandardReplacementRules_AddsRulesForFizzAndBuzz() {
+		var sut = new FizzBuzz();
+		
+		sut.AddStandardReplacementRules();
+
+		var fieldInfo = typeof(FizzBuzz).GetField("_replacements", BindingFlags.NonPublic | BindingFlags.Instance);
+		var actual = (List<IReplacementRule>)fieldInfo.GetValue(sut);
+
+		actual.OfType<DivisibleReplacementRule>().Should().Contain(r => r.Divisor == 3 && r.ReplacementWord == "Fizz");
+		actual.OfType<DivisibleReplacementRule>().Should().Contain(r => r.Divisor == 5 && r.ReplacementWord == "Buzz");
 	}
 }
